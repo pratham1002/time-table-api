@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+Hello {{userdata.name}} Please Create a Password
+<br>
+{{message}} 
+
+<br>
+<form action="NewUser" method="post">
+    {% csrf_token %}
+    Enter username : <br> <input type="text" name="username">
+    <br>
+    Enter email : <br> <input type="text" name="email">
+    <br>
+    Enter Password : <br> <input type="password" name="password1">
+    <br>
+    Re-enter Password : <br> <input type="password" name="password2">
+    <br><br>
+    <input type="submit">
+</form>
+{% endblock %}
