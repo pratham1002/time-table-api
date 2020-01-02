@@ -268,7 +268,7 @@ def AddSlot(request):
                     else:
                         return render(request, 'Home.html',{"userhours":userhours})
         
-    return render(request, 'Home.html',{"userhours":userhours})
+    return Home(request)
 
 def RemoveCourse(request):
     course_number=request.GET['course_number']
@@ -288,7 +288,7 @@ def RemoveCourse(request):
             userhour.course=''
             userhour.save()
 
-    return render(request, 'Home.html',{"userhours":userhours})
+    return Home(request)
 
 def Logout(request):
     auth.logout(request)
