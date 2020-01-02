@@ -57,10 +57,8 @@ def LoginUser(request):
         return Home(request)
 
     else:
-        email=user.email
-        userdata=Student.objects.get(email=email)
 
-        return render(request,'Login.html',{"userdata":userdata, "message":"invalid password"})
+        return render(request,'Login.html',{"message":"invalid password"})
 
 def CreateUser(request):
     username=request.POST['username']
