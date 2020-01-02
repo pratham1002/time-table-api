@@ -39,7 +39,7 @@ def Home(request):
     return render(request, 'Home.html', {"userhours":userhours})
 
 def index(request):
-    return render(request, 'Index.html')
+    return render(request, 'index.html')
 
 def Login(request):
     return render(request, 'Login.html')
