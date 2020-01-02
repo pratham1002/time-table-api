@@ -47,6 +47,7 @@
 <div id="rightbox">
     {{message}}
     <h3>{{course_number}}</h3>
+    {% if lectures %}
     <h4>Lectures</h4>
     <form action="AddSlot" method="POST">
         {% csrf_token %}
@@ -57,7 +58,9 @@
         <br>
         <button type="submit" name="course_number" value="{{course_number}}">Submit</button>
     </form>
+    {% endif %}
     <br>
+    {% if tutorials %}
     <h4>Tutorials</h4>
     <form action="AddSlot" method="POST">
         {% csrf_token %}
@@ -68,7 +71,9 @@
         <br>
         <button type="submit" name="course_number" value="{{course_number}}">Submit</button>
     </form>
+    {% endif %}
     <br>
+    {% if practicals %}
     <h4>Practicals</h4>
     <form action="AddSlot" method="POST">
         {% csrf_token %}
@@ -79,6 +84,7 @@
         <br>
         <button type="submit" name="course_number" value="{{course_number}}">Submit</button>
     </form>
+    {% endif %}
 </div>
 
 {% endblock %}
