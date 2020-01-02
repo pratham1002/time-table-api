@@ -48,9 +48,12 @@ def SignUp(request):
     return render(request,'SignUp.html')
 
 def LoginUser(request):
-    username=request.POST['username']
-    password=request.POST['password']
-
+    try :
+        username=request.POST['username']
+        password=request.POST['password']
+    except :
+        return render(request, 'Login.html')
+    
     user=auth.authenticate(username=username,password=password)
     if user is not None:
         auth.login(request,user)
@@ -61,10 +64,13 @@ def LoginUser(request):
         return render(request,'Login.html',{"message":"invalid password"})
 
 def CreateUser(request):
-    username=request.POST['username']
-    email=request.POST['email']
-    password1=request.POST['password1']
-    password2=request.POST['password2']
+    try :
+        username=request.POST['username']
+        email=request.POST['email']
+        password1=request.POST['password1']
+        password2=request.POST['password2']
+    except :
+        return render(request,'SignUp.html')
 
     if(password1==password2):
         if User.objects.filter(email=email).exists():
