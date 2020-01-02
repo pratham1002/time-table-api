@@ -227,6 +227,8 @@ def CourseData(request):
                     instructors.append(sheet.cell_value(i+j,7))
 
             break
+    if len(lectures) == 0:
+        return render(request, 'Home.html', {"message":"Invalid Course Name"})
 
     return render(request, 'Home.html', {"course_number":course_number, "lectures": lectures, "practicals": practicals, "tutorials": tutorials, "userhours":userhours})
 
