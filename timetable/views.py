@@ -233,9 +233,12 @@ def CourseData(request):
     return render(request, 'Home.html', {"course_number":course_number, "lectures": lectures, "practicals": practicals, "tutorials": tutorials, "userhours":userhours})
 
 def AddSlot(request):
-
-    slot=request.POST['slot']
-    course_number=request.POST['course_number']
+    
+    try:
+        slot=request.POST['slot']
+        course_number=request.POST['course_number']
+    except :
+        return Home(request)
     slotdata=slot.split(', ')
 
     current_user=request.user
@@ -271,7 +274,10 @@ def AddSlot(request):
     return Home(request)
 
 def RemoveCourse(request):
-    course_number=request.GET['course_number']
+    try :
+        course_number=request.GET['course_number']
+    except :
+        return Home(request)
     current_user=request.user
     userdata=Student.objects.get(email=current_user.email)
     userdays=Day.objects.filter(student=userdata.id)
