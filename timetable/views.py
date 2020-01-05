@@ -293,10 +293,11 @@ def RemoveCourse(request):
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
     
-    course_name=userhours.course.spit(' S')
+
 
 
     for userhour in userhours:
+        course_name=userhours.course.spit(' S')
         if course_name==course_number :
             userhour.status=False
             userhour.course=''
