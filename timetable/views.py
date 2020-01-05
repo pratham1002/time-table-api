@@ -298,7 +298,7 @@ def RemoveCourse(request):
 
     for userhour in userhours:
         course_name=userhour.course.split(' S')
-        if course_name==course_number :
+        if course_name[0]==course_number :
             userhour.status=False
             userhour.course=''
             userhour.save()
