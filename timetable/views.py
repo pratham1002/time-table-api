@@ -297,7 +297,7 @@ def RemoveCourse(request):
 
 
     for userhour in userhours:
-        course_name=userhours.course.spit(' S')
+        course_name=userhour.course.spit(' S')
         if course_name==course_number :
             userhour.status=False
             userhour.course=''
