@@ -271,7 +271,7 @@ def AddSlot(request):
                 if userhour.day_number==day and userhour.hour_number==int(hour) :
                     if userhour.status==False:
                         #print("change done")
-                        userhour.course=course_number
+                        userhour.course=course_number + ' S'+ section_number
                         userhour.status=True
                         userhour.save()
                     else:
@@ -292,10 +292,13 @@ def RemoveCourse(request):
 
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
+    
+
 
 
     for userhour in userhours:
-        if userhour.course==course_number :
+        course_name=userhour.course.split(' S')
+        if course_name[0]==course_number :
             userhour.status=False
             userhour.course=''
             userhour.save()
