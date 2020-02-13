@@ -110,7 +110,7 @@ def CourseData(request):
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
 
-    loc=("Timetable.xlsx")
+    loc=("II-Sem-2019_20_05_01_2020-converted (1).xlsx")
     wb=xlrd.open_workbook(loc)
     sheet=wb.sheet_by_index(0)
 
