@@ -57,7 +57,7 @@ def LoginUser(request):
     user=auth.authenticate(username=username,password=password)
     if user is not None:
         auth.login(request,user)
-        return Home(request)
+        return redirect('/Home')
 
     else:
 
@@ -92,7 +92,7 @@ def CreateUser(request):
 
             if user is not None:
                 auth.login(request,user)
-                return Home(request)
+                return redirect('/Home')
             
     else:
         return render(request,'SignUp.html',{"message":"Passwords Do Not Match"})
@@ -277,7 +277,7 @@ def AddSlot(request):
                     else:
                         return render(request, 'Home.html',{"userhours":userhours})
         
-    return Home(request)
+    return redirect('/Home')
 
 def RemoveCourse(request):
     try :
@@ -303,7 +303,7 @@ def RemoveCourse(request):
             userhour.course=''
             userhour.save()
 
-    return Home(request)
+    return redirect('/Home')
 
 def Logout(request):
     auth.logout(request)
