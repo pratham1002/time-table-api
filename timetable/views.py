@@ -25,7 +25,7 @@ def ConvertToIntegerList(strlist):
             intlist.append(5)
     return(intlist)
     
-def Home(request):
+def home(request):
     current_user=request.user
     userdata=Student.objects.get(email=current_user.email)
     userdays=Day.objects.filter(student=userdata.id)
@@ -36,66 +36,71 @@ def Home(request):
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
 
-    return render(request, 'Home.html', {"userhours":userhours})
+    context = {
+        "userhours":userhours
+    }
+
+    return render(request, 'home.html', context)
 
 def index(request):
     return render(request, 'index.html')
 
-def Login(request):
-    return render(request, 'Login.html')
-
-def SignUp(request):
-    return render(request,'SignUp.html')
-
-def LoginUser(request):
-    try :
-        username=request.POST['username']
-        password=request.POST['password']
-    except :
-        return render(request, 'Login.html')
+def login(request):
+    if request.method == 'POST':
+        try :
+            username=request.POST['username']
+            password=request.POST['password']
+        except :
+            return render(request, 'login.html')
     
-    user=auth.authenticate(username=username,password=password)
-    if user is not None:
-        auth.login(request,user)
-        return redirect('/Home')
+        user=auth.authenticate(username=username,password=password)
+        if user is not None:
+            auth.login(request,user)
+            return redirect('/home')
 
-    else:
-
-        return render(request,'Login.html',{"message":"invalid password"})
-
-def CreateUser(request):
-    try :
-        username=request.POST['username']
-        email=request.POST['email']
-        password1=request.POST['password1']
-        password2=request.POST['password2']
-    except :
-        return render(request,'SignUp.html')
-
-    if(password1==password2):
-        if User.objects.filter(email=email).exists():
-            return render(request,'SignUp.html',{"message":"User already exists"})
         else:
-            user=User.objects.create_user(username=username, password=password1, email=email)
-            user.save()
-
-            newstudent=Student(bits_id=username, email=email)
-            newstudent.save()
-            for i in range (0,6):
-                newday=Day(day_number=i, student=newstudent)
-                newday.save()
-                for j in range (1,10):
-                    newhour=Hour(day_number=i, hour_number=j, day=newday)
-                    newhour.save()
-
-            user=auth.authenticate(username=username,password=password1)
-
-            if user is not None:
-                auth.login(request,user)
-                return redirect('/Home')
-            
+            return render(request, 'login.html', {"message": "invalid password"})
+    
     else:
-        return render(request,'SignUp.html',{"message":"Passwords Do Not Match"})
+        return render(request, 'login.html')
+
+def signUp(request):
+    if request.method == 'POST':
+        try :
+            username = request.POST['username']
+            email = request.POST['email']
+            password1 = request.POST['password1']
+            password2 = request.POST['password2']
+        except :
+            return redirect('/signUp')
+
+        if(password1==password2):
+            if User.objects.filter(email=email).exists():
+                return render(request,'signUp.html',{"message":"User already exists"})
+            else:
+                user = User.objects.create_user(username=username, password=password1, email=email)
+                user.save()
+
+                newstudent=Student(bits_id=username, email=email)
+                newstudent.save()
+                for i in range (0,6):
+                    newday = Day(day_number=i, student=newstudent)
+                    newday.save()
+                    for j in range (1,10):
+                        newhour = Hour(day_number=i, hour_number=j, day=newday)
+                        newhour.save()
+
+                user = auth.authenticate(username=username, password=password1)
+
+                if user is not None:
+                    auth.login(request,user)
+                    return redirect('/home')
+
+        else:
+            return render(request, 'signUp.html', {"message": "Passwords Do Not Match"})
+    
+    else:
+        return render(request,'signUp.html')
 
 def CourseData(request):
 
@@ -305,7 +310,7 @@ def RemoveCourse(request):
 
     return redirect('/Home')
 
-def Logout(request):
+def logout(request):
     auth.logout(request)
     return redirect('/')
 

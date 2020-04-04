@@ -7,7 +7,7 @@ Hello {{userdata.name}} Please Create a Password
 {{message}} 
 
 <br>
-<form action="NewUser" method="post">
+<form action="signUp" method="post">
     {% csrf_token %}
     Enter username : <br> <input type="text" name="username" required>
     <br>
