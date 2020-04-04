@@ -5,6 +5,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA_Compatible" content="ie=edge">
         <style>
+            html, body 
+            {
+                margin: 0;
+                height: 100%;
+                min-height: 100%;
+            }
+            body 
+            {
+                display: flex;
+                flex-direction: column;
+            }
+            header,footer 
+            {
+                flex: none;
+                background-color: aqua;
+                text-align: center;
+            }
+            main 
+            {
+                overflow-y: scroll;
+                -webkit-overflow-scrolling: touch;
+                flex: auto;
+            }
             .table_box{
                 float: left;
                 width: 10%;
@@ -61,16 +84,20 @@
                 width:25%;  
                 padding: 10px;
             } 
-            h1{ 
-                color:green; 
-                text-align:center; 
-            } 
         </style>
         <title>Time Table</title>
     </head>
     <body>
-        {% block content %}
+        <header>
+            <h1>Time Table Visualiser</h1>
+        </header>
+        <main>
+            {% block main %}
 
-        {% endblock %}
+            {% endblock %}
+        </main>
+        <footer>
+            <h4>Made by Pratham</h4>
+        </footer>
     </body>
 </html>
