@@ -237,9 +237,12 @@ def CourseData(request):
 
             break
     if len(lectures) == 0:
-        return render(request, 'Home.html', {"message":"Invalid Course Name","userhours":userhours})
+        return render(request, 'home.html', {"message":"Invalid Course Name","userhours":userhours})
 
-    return render(request, 'Home.html', {"course_number":course_number, "lectures": lectures, "practicals": practicals, "tutorials": tutorials, "userhours":userhours})
+    return render(request, 'home.html', {"course_number":course_number, "lectures": lectures, "practicals": practicals, "tutorials": tutorials, "userhours":userhours})
+
+def split(word): 
+    return [char for char in word] 
 
 def AddSlot(request):    
     try:
@@ -258,22 +261,25 @@ def AddSlot(request):
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
 
-    section_number=slotdata[0]
-    days=slotdata[1].split()
-    hours=slotdata[2].split()
-    days=ConvertToIntegerList(days)
+    section_number = slotdata[0]
+    days = slotdata[1].split()
+    hours = split(slotdata[2])
+    days = ConvertToIntegerList(days)
+    
+    print(slotdata)
+    print(days)
+    print(hours)
 
     for day in days:
         for hour in hours:
             for userhour in userhours:
                 if userhour.day_number==day and userhour.hour_number==int(hour) :
                     if userhour.status==False:
-                        #print("change done")
                         userhour.course=course_number + ' S'+ section_number
                         userhour.status=True
                         userhour.save()
                     else:
-                        return render(request, 'Home.html',{"userhours":userhours})
+                        return render(request, 'home.html',{"userhours":userhours})
         
     return redirect('/home')
 
@@ -290,10 +296,7 @@ def RemoveCourse(request):
 
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
-    
-
-
-
+   
     for userhour in userhours:
         course_name=userhour.course.split(' S')
         if course_name[0]==course_number :
@@ -301,7 +304,7 @@ def RemoveCourse(request):
             userhour.course=''
             userhour.save()
 
-    return redirect('/Home')
+    return redirect('/home')
 
 def clear(request):
     current_user=request.user
@@ -317,4 +320,4 @@ def clear(request):
             userhour.course=''
             userhour.save()
 
-    return render(request, 'Home.html',{"userhours":userhours})
+    return redirect('/home')
