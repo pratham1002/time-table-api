@@ -72,10 +72,10 @@ def signUp(request):
         form = signUpForm(request.POST)
 
         if form.is_valid():
-            user = User.objects.create_user(username=request.username, password=request.password1, email=request.email)
+            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], email=request.POST['email'])
             user.save()
 
-            newstudent=Student(bits_id=request.username, email=request.email)
+            newstudent=Student(bits_id=request.POST['username'], email=request.POST['email'])
             newstudent.save()
             for i in range (0,6):
                 newday = Day(day_number=i, student=newstudent)
@@ -84,46 +84,17 @@ def signUp(request):
                     newhour = Hour(day_number=i, hour_number=j, day=newday)
                     newhour.save()
 
-            user = auth.authenticate(username=request.username, password=request.password1)
+            user = auth.authenticate(username=request.POST['username'], password=request.POST['password1'])
 
             if user is not None:
                 auth.login(request,user)
                 return redirect('/home')
-        try :
-            username = request.POST['username']
-            email = request.POST['email']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-        except :
-            return redirect('/signUp')
 
-        if(password1==password2):
-            if User.objects.filter(email=email).exists():
-                return render(request,'signUp.html',{"message":"User already exists"})
-            else:
-                user = User.objects.create_user(username=username, password=password1, email=email)
-                user.save()
-
-                newstudent=Student(bits_id=username, email=email)
-                newstudent.save()
-                for i in range (0,6):
-                    newday = Day(day_number=i, student=newstudent)
-                    newday.save()
-                    for j in range (1,10):
-                        newhour = Hour(day_number=i, hour_number=j, day=newday)
-                        newhour.save()
-
-                user = auth.authenticate(username=username, password=password1)
-
-                if user is not None:
-                    auth.login(request,user)
-                    return redirect('/home')
-
-        else:
-            return render(request, 'signUp.html', {"message": "Passwords Do Not Match"})
-    
-    else:
-        return render(request, 'signUp.html')
+    form = signUpForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'signUp.html', context)
         
 def logout(request):
     auth.logout(request)

@@ -9,14 +9,7 @@ Hello {{userdata.name}} Please Create a Password
 <br>
 <form action="signUp" method="post">
     {% csrf_token %}
-    Enter username : <br> <input type="text" name="username" required>
-    <br>
-    Enter email : <br> <input type="text" name="email" required>
-    <br>
-    Enter Password : <br> <input type="password" name="password1" required>
-    <br>
-    Re-enter Password : <br> <input type="password" name="password2" required>
-    <br><br>
+    {{form.as_p}}
     <input type="submit">
 </form>
 {% endblock %}
