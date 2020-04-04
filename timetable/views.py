@@ -201,7 +201,7 @@ def AddSlot(request):
                         userhour.status=True
                         userhour.save()
                     else:
-                        return render(request, 'home.html',{"userhours":userhours})
+                        return redirect('/home')
         
     return redirect('/home')
 
