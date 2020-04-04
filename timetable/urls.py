@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views, authRouters
 
 urlpatterns=[
-    path('',views.index, name='index'),
-    path('signUp',views.signUp,name='signUp'),
-    path('login',views.login,name='login'),
-    path('logout',views.logout,name='logout'),
-    path('home',views.home, name='home'),
+    path('', authRouters.index, name='index'),
+    path('signUp', authRouters.signUp, name='signUp'),
+    path('login', authRouters.login, name='login'),
+    path('logout', authRouters.logout, name='logout'),
+    path('home', authRouters.home, name='home'),
     path('CourseData',views.CourseData, name='CourseData'),
     path('AddSlot',views.AddSlot, name='AddSlot'),
     path('RemoveCourse',views.RemoveCourse, name='RemoveCourse'),
