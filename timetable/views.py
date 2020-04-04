@@ -57,7 +57,7 @@ def LoginUser(request):
     user=auth.authenticate(username=username,password=password)
     if user is not None:
         auth.login(request,user)
-        return Home(request)
+        return redirect('/Home')
 
     else:
 
@@ -92,7 +92,7 @@ def CreateUser(request):
 
             if user is not None:
                 auth.login(request,user)
-                return Home(request)
+                return redirect('/Home')
             
     else:
         return render(request,'SignUp.html',{"message":"Passwords Do Not Match"})
@@ -110,7 +110,7 @@ def CourseData(request):
     for day in userdays:
         userhours = userhours | Hour.objects.filter(day=day.id).order_by('id')
 
-    loc=("Timetable.xlsx")
+    loc=("II-Sem-2019_20_05_01_2020-converted (1).xlsx")
     wb=xlrd.open_workbook(loc)
     sheet=wb.sheet_by_index(0)
 
@@ -277,7 +277,7 @@ def AddSlot(request):
                     else:
                         return render(request, 'Home.html',{"userhours":userhours})
         
-    return Home(request)
+    return redirect('/Home')
 
 def RemoveCourse(request):
     try :
@@ -303,7 +303,7 @@ def RemoveCourse(request):
             userhour.course=''
             userhour.save()
 
-    return Home(request)
+    return redirect('/Home')
 
 def Logout(request):
     auth.logout(request)
