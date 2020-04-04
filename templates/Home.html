@@ -13,38 +13,37 @@
 </form>
 
 <br>
-
-<div id="leftbox">
-    <div class="table_box2">
-        Monday
+<div class="left">
+    <div id="leftbox">
+        <div class="table_box2">
+            Monday
+        </div>
+        <div class="table_box2">
+            Tuesday
+        </div>
+        <div class="table_box2">
+            Wednesday
+        </div>
+        <div class="table_box2">
+            Thursday
+        </div>
+        <div class="table_box2">
+            Friday
+        </div>
+        <div class="table_box2">
+            Saturday
+        </div>
     </div>
-    <div class="table_box2">
-        Tuesday
-    </div>
-    <div class="table_box2">
-        Wednesday
-    </div>
-    <div class="table_box2">
-        Thursday
-    </div>
-    <div class="table_box2">
-        Friday
-    </div>
-    <div class="table_box2">
-        Saturday
+    <div id="middlebox">
+        {% for userhour in userhours %}
+        <div class="table_box">
+            {{userhour.course}}
+        </div>
+        {% endfor %}
     </div>
 </div>
-<div id="middlebox">
-    {% for userhour in userhours %}
-    <div class="table_box">
-        {{userhour.course}}
-        <!--{% if forloop.counter0|divisibleby:9 %}
-        <br>
-        {% endif %}-->
-    </div>
-    {% endfor %}
-</div>
-<div id="rightbox">
+<div class="right">
+    <div id="rightbox">
     {{message}}
     <h3>{{course_number}}</h3>
     {% if lectures %}
@@ -86,9 +85,8 @@
     </form>
     {% endif %}
 </div>
-
-<div>
-    <a href="clear">CLEAR ALL</a>
 </div>
+    
+<a href="clear">CLEAR ALL</a>
 
 {% endblock %}

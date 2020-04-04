@@ -28,7 +28,34 @@
                 -webkit-overflow-scrolling: touch;
                 flex: auto;
             }
-            .table_box{
+            .left 
+            {   
+                float: left;
+                width: 80%;
+                border-top: 1px solid gray;
+                height: 80%;
+                overflow: scroll;
+            }
+            .left::-webkit-scrollbar 
+            {
+                display: none;
+            }
+            main::-webkit-scrollbar 
+            {
+                display: none;
+            }
+            .right 
+            {   
+                float: left;
+                width: 20%;
+                background: yellow;
+                height: 80%;
+                overflow: scroll;
+                border-top: 1px solid gray;
+                overflow-x: hidden;
+            }
+            .table_box
+            {
                 float: left;
                 width: 10%;
                 height: 50px;
@@ -38,27 +65,9 @@
                 overflow: hidden;
                 font-size: 1em;
             }
-           .tutorial_box{
-                float: left;
-                width: 10%;
-                height: 50px;
-                background: cyan;
-                border: 2px solid black;
-                text-align: center;
-                overflow: hidden;
-                font-size: 1em;
-            } 
-            .practical_box{
-                float: left;
-                width: 10%;
-                height: 50px;
-                background: yellow;
-                border: 2px solid black;
-                text-align: center;
-                overflow: hidden;
-                font-size: 1em;
-            }
-            .table_box2{
+           
+            .table_box2
+            {
                 float: left;
                 width: 90%;
                 height: 50px;
@@ -66,22 +75,24 @@
                 border: 2px solid black;
                 text-align: center;
             }
-            #leftbox { 
+            #leftbox 
+            { 
                 float:left;  
                 background:Red; 
-                width:10%; 
+                width:15%; 
                 padding: 10px; 
             } 
-            #middlebox { 
+            #middlebox 
+            { 
                 float:left;  
                 background:Red; 
-                width:60%; 
+                width:80%; 
                 padding: 10px; 
             } 
-            #rightbox{ 
+            #rightbox
+            { 
                 float:right; 
                 background:yellow; 
-                width:25%;  
                 padding: 10px;
             } 
         </style>
