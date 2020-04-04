@@ -5,7 +5,8 @@ from django.contrib.auth.models import User, auth
 from django.contrib import messages
 from django.contrib.postgres.search import *
 from django.core.exceptions import *
-from .models import Student,Day,Hour
+from .models import Student, Day, Hour
+from .forms import loginForm, signUpForm
 import  enum
 
 def ConvertToIntegerList(strlist):
@@ -47,25 +48,47 @@ def index(request):
 
 def login(request):
     if request.method == 'POST':
-        try :
-            username=request.POST['username']
-            password=request.POST['password']
-        except :
-            return render(request, 'login.html')
-    
-        user=auth.authenticate(username=username,password=password)
-        if user is not None:
-            auth.login(request,user)
-            return redirect('/home')
+        form = loginForm(request.POST)
 
+        if form.is_valid():
+            user = auth.authenticate(username=request.POST['username'], password=request.POST['password'])
+            if user is not None:
+                auth.login(request,user)
+                return redirect('/home')
+            else:
+                return redirect('/login')
+        
         else:
-            return render(request, 'login.html', {"message": "invalid password"})
-    
-    else:
-        return render(request, 'login.html')
+            return redirect('/login')
+
+    form = loginForm()
+    context = {
+        "form": form
+    }
+    return render(request, 'login.html', context)
 
 def signUp(request):
     if request.method == 'POST':
+        form = signUpForm(request.POST)
+
+        if form.is_valid():
+            user = User.objects.create_user(username=request.username, password=request.password1, email=request.email)
+            user.save()
+
+            newstudent=Student(bits_id=request.username, email=request.email)
+            newstudent.save()
+            for i in range (0,6):
+                newday = Day(day_number=i, student=newstudent)
+                newday.save()
+                for j in range (1,10):
+                    newhour = Hour(day_number=i, hour_number=j, day=newday)
+                    newhour.save()
+
+            user = auth.authenticate(username=request.username, password=request.password1)
+
+            if user is not None:
+                auth.login(request,user)
+                return redirect('/home')
         try :
             username = request.POST['username']
             email = request.POST['email']
@@ -100,7 +123,11 @@ def signUp(request):
             return render(request, 'signUp.html', {"message": "Passwords Do Not Match"})
     
     else:
-        return render(request,'signUp.html')
+        return render(request, 'signUp.html')
+        
+def logout(request):
+    auth.logout(request)
+    return redirect('/')
 
 def CourseData(request):
 
@@ -243,13 +270,12 @@ def CourseData(request):
 
     return render(request, 'Home.html', {"course_number":course_number, "lectures": lectures, "practicals": practicals, "tutorials": tutorials, "userhours":userhours})
 
-def AddSlot(request):
-    
+def AddSlot(request):    
     try:
         slot=request.POST['slot']
         course_number=request.POST['course_number']
     except :
-        return Home(request)
+        return redirect('/home')
     slotdata=slot.split(', ')
 
     current_user=request.user
@@ -266,10 +292,6 @@ def AddSlot(request):
     hours=slotdata[2].split()
     days=ConvertToIntegerList(days)
 
-
-    #print(days)
-    #print(hours)
-    
     for day in days:
         for hour in hours:
             for userhour in userhours:
@@ -282,13 +304,13 @@ def AddSlot(request):
                     else:
                         return render(request, 'Home.html',{"userhours":userhours})
         
-    return redirect('/Home')
+    return redirect('/home')
 
 def RemoveCourse(request):
     try :
         course_number=request.GET['course_number']
     except :
-        return Home(request)
+        return redirect('/home')
     current_user=request.user
     userdata=Student.objects.get(email=current_user.email)
     userdays=Day.objects.filter(student=userdata.id)
@@ -309,10 +331,6 @@ def RemoveCourse(request):
             userhour.save()
 
     return redirect('/Home')
-
-def logout(request):
-    auth.logout(request)
-    return redirect('/')
 
 def clear(request):
     current_user=request.user

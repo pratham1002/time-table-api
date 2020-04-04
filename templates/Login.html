@@ -7,10 +7,7 @@ Hello {{userdata.name}} Please Enter your Password
 <br>
 <form action="login" method="POST">
     {% csrf_token %}
-    Enter username : <br> <input type="text" name="username" required>
-    <br>
-    Enter Password : <br> <input type="password" name="password" required>
-    <br>
+    {{form.as_p}}
     <input type="submit">
 </form>
 {% endblock %}
