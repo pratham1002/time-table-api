@@ -265,10 +265,6 @@ def AddSlot(request):
     days = slotdata[1].split()
     hours = split(slotdata[2])
     days = ConvertToIntegerList(days)
-    
-    print(slotdata)
-    print(days)
-    print(hours)
 
     for day in days:
         for hour in hours:
