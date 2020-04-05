@@ -3,6 +3,7 @@ from django.contrib.auth.models import User, auth
 from django.contrib.postgres.search import *
 from .models import Student, Day, Hour
 from .forms import loginForm, signUpForm
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     return render(request, 'index.html')
@@ -56,11 +57,13 @@ def signUp(request):
         "form": form
     }
     return render(request, 'signUp.html', context)
-        
+
+@login_required(redirect_field_name=None)        
 def logout(request):
     auth.logout(request)
     return redirect('/')
 
+@login_required(redirect_field_name=None)
 def home(request):
     current_user=request.user
     userdata=Student.objects.get(email=current_user.email)

@@ -7,6 +7,7 @@ from django.contrib.postgres.search import *
 from django.core.exceptions import *
 from .models import Student, Day, Hour
 from .forms import loginForm, signUpForm
+from django.contrib.auth.decorators import login_required
 import  enum
 
 def ConvertToIntegerList(strlist):
@@ -25,7 +26,8 @@ def ConvertToIntegerList(strlist):
         if ele == 'S':
             intlist.append(5)
     return(intlist)
-    
+
+@login_required(redirect_field_name=None)    
 def CourseData(request):
 
     course_number=request.GET['course_number']
@@ -170,6 +172,7 @@ def CourseData(request):
 def split(word): 
     return [char for char in word] 
 
+@login_required(redirect_field_name=None)
 def AddSlot(request):    
     try:
         slot=request.POST['slot']
@@ -205,6 +208,7 @@ def AddSlot(request):
         
     return redirect('/home')
 
+@login_required(redirect_field_name=None)
 def RemoveCourse(request):
     try :
         course_number=request.GET['course_number']
@@ -228,6 +232,7 @@ def RemoveCourse(request):
 
     return redirect('/home')
 
+@login_required(redirect_field_name=None)
 def clear(request):
     current_user=request.user
     userdata=Student.objects.get(email=current_user.email)
