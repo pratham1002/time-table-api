@@ -6,9 +6,13 @@ from .forms import loginForm, signUpForm
 from django.contrib.auth.decorators import login_required
 
 def index(request):
+    if request.user.is_authenticated:
+        return redirect('/home')
     return render(request, 'index.html')
 
 def login(request):
+    if request.user.is_authenticated:
+        return redirect('/home')
     if request.method == 'POST':
         form = loginForm(request.POST)
 
@@ -30,6 +34,8 @@ def login(request):
     return render(request, 'login.html', context)
 
 def signUp(request):
+    if request.user.is_authenticated:
+        return redirect('/home')
     if request.method == 'POST':
         form = signUpForm(request.POST)
 
