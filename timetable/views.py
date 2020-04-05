@@ -202,9 +202,11 @@ def AddSlot(request):
                     if userhour.status==False:
                         userhour.course=course_number + ' S'+ section_number
                         userhour.status=True
-                        userhour.save()
                     else:
                         return redirect('/home')
+            
+    for userhour in userhours:
+        userhour.save()
         
     return redirect('/home')
 
