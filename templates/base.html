@@ -28,14 +28,15 @@
                 -webkit-overflow-scrolling: touch;
                 flex: auto;
             }
-            .left 
+            .timetable_box
             {   
                 float: left;
-                width: 100%;
+                width: 500px;
                 border-top: 1px solid gray;
                 overflow: scroll;
+                background-color: red;
             }
-            .left::-webkit-scrollbar 
+            .timetable_box::-webkit-scrollbar 
             {
                 display: none;
             }
@@ -43,10 +44,14 @@
             {
                 display: none;
             }
+            .right::-webkit-scrollbar 
+            {
+                display: none;
+            }
             .right 
             {   
                 float: left;
-                width: 100%;
+                width: 500px;
                 background: yellow;
                 overflow: scroll;
                 border-top: 1px solid gray;
@@ -58,10 +63,10 @@
                 width: 10%;
                 height: 50px;
                 background: white;
-                border: 2px solid black;
+                border: 1px solid black;
                 text-align: center;
                 overflow: hidden;
-                font-size: 1em;
+                font-size: 13px;
             }
            
             .table_box2
@@ -70,28 +75,35 @@
                 width: 90%;
                 height: 50px;
                 background: white;
-                border: 2px solid black;
+                border: 1px solid black;
                 text-align: center;
             }
             #leftbox 
             { 
                 float:left;  
-                background:Red; 
                 width:15%; 
-                padding: 10px; 
+                padding: 5px; 
             } 
             #middlebox 
             { 
                 float:left;  
-                background:Red; 
-                width:80%; 
-                padding: 10px; 
+                width:82%; 
+                padding: 5px; 
+                padding-left: 0;
             } 
             #rightbox
             { 
                 background:yellow; 
                 padding: 10px;
             } 
+            .alignleft 
+            {
+	            float: left;
+            }
+            .alignright 
+            {
+	            float: right;
+            }
         </style>
         <title>Time Table</title>
     </head>

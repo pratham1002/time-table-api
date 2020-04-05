@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
 {% block main %}
-<a href="logout">Logout</a><br>
-
 <form action="CourseData" method="GET">
     Enter Course Number To See Choices : <input type="text" name="course_number" placeholder="BITS F111">
     <input type="submit">
@@ -13,25 +11,25 @@
 </form>
 
 <br>
-<div class="left">
+<div class="timetable_box">
     <div id="leftbox">
         <div class="table_box2">
-            Monday
+            M
         </div>
         <div class="table_box2">
-            Tuesday
+            T
         </div>
         <div class="table_box2">
-            Wednesday
+            W
         </div>
         <div class="table_box2">
-            Thursday
+            Th
         </div>
         <div class="table_box2">
-            Friday
+            F
         </div>
         <div class="table_box2">
-            Saturday
+            S
         </div>
     </div>
     <div id="middlebox">
@@ -86,7 +84,9 @@
     {% endif %}
 </div>
 </div>
-    
-<a href="clear">CLEAR ALL</a>
 
+<div id="textbox" style="width: 500px;">
+  <p class="alignleft"><a href="clear">CLEAR ALL</a></p>
+  <p class="alignright"><a href="logout">Logout</a></p>
+</div>
 {% endblock %}
