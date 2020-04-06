@@ -48,7 +48,7 @@ def signUp(request):
             for i in range (0,6):
                 newday = Day(day_number=i, student=newstudent)
                 newday.save()
-                for j in range (1,10):
+                for j in range (1,11):
                     newhour = Hour(day_number=i, hour_number=j, day=newday)
                     newhour.save()
 

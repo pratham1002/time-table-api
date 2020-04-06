@@ -25,24 +25,18 @@
             main 
             {
                 overflow-y: scroll;
+                overflow-x: scroll;
                 -webkit-overflow-scrolling: touch;
                 flex: auto;
             }
             .timetable_box
             {   
                 float: left;
-                width: 500px;
+                width: 550px;
                 border-top: 1px solid gray;
                 overflow: scroll;
                 background-color: red;
-            }
-            .timetable_box::-webkit-scrollbar 
-            {
-                display: none;
-            }
-            main::-webkit-scrollbar 
-            {
-                display: none;
+                overflow: hidden;
             }
             .right::-webkit-scrollbar 
             {
@@ -51,7 +45,7 @@
             .right 
             {   
                 float: left;
-                width: 500px;
+                width: 550px;
                 background: yellow;
                 overflow: scroll;
                 border-top: 1px solid gray;
@@ -60,15 +54,14 @@
             .table_box
             {
                 float: left;
-                width: 10%;
+                width: 9%;
                 height: 50px;
                 background: white;
                 border: 1px solid black;
                 text-align: center;
                 overflow: hidden;
                 font-size: 13px;
-            }
-           
+            }           
             .table_box2
             {
                 float: left;

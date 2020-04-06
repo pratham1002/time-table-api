@@ -136,7 +136,7 @@ def CourseData(request):
                                 instructors=[]
                                 section_number = section_number + 1
                                 row_number=i+j+k
-                                instructors.append(sheet.cell_value(i+j+k,9))
+                                instructors.append(sheet.cell_value(i + j + k, 9))
                                 try:
                                     instructors.append(int(sheet.cell_value(i+j+k,10)))
                                 except: 
@@ -193,6 +193,12 @@ def AddSlot(request):
     section_number = slotdata[0]
     days = slotdata[1].split()
     hours = split(slotdata[2])
+
+    if hours[len(hours)-1] == '0':
+        hours.pop()
+        hours.pop()
+        hours.append(str('10'))
+
     days = ConvertToIntegerList(days)
 
     for day in days:
