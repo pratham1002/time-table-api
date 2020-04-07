@@ -40,10 +40,10 @@ def signUp(request):
         form = signUpForm(request.POST)
 
         if form.is_valid():
-            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], email=request.POST['email'])
+            user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
             user.save()
 
-            newstudent=Student(bits_id=request.POST['username'], email=request.POST['email'])
+            newstudent=Student(bits_id=request.POST['username'])
             newstudent.save()
             for i in range (0,6):
                 newday = Day(day_number=i, student=newstudent)
@@ -72,7 +72,7 @@ def logout(request):
 @login_required(redirect_field_name=None)
 def home(request):
     current_user=request.user
-    userdata=Student.objects.get(email=current_user.email)
+    userdata=Student.objects.get(bits_id=current_user.username)
     userdays=Day.objects.filter(student=userdata.id)
     
     i=0

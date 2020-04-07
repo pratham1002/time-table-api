@@ -33,7 +33,7 @@ def CourseData(request):
     course_number=request.GET['course_number']
 
     current_user=request.user
-    userdata=Student.objects.get(email=current_user.email)
+    userdata=Student.objects.get(bits_id=current_user.username)
     userdays=Day.objects.filter(student=userdata.id)
     
     userhours=Hour.objects.none()
@@ -182,7 +182,7 @@ def AddSlot(request):
     slotdata=slot.split(', ')
 
     current_user=request.user
-    userdata=Student.objects.get(email=current_user.email)
+    userdata=Student.objects.get(bits_id=current_user.username)
     userdays=Day.objects.filter(student=userdata.id)
     
     userhours=Hour.objects.none()
@@ -223,7 +223,7 @@ def RemoveCourse(request):
     except :
         return redirect('/home')
     current_user=request.user
-    userdata=Student.objects.get(email=current_user.email)
+    userdata=Student.objects.get(bits_id=current_user.username)
     userdays=Day.objects.filter(student=userdata.id)
     
     userhours=Hour.objects.none()
@@ -243,7 +243,7 @@ def RemoveCourse(request):
 @login_required(redirect_field_name=None)
 def clear(request):
     current_user=request.user
-    userdata=Student.objects.get(email=current_user.email)
+    userdata=Student.objects.get(bits_id=current_user.username)
     userdays=Day.objects.filter(student=userdata.id)
     
     userhours=Hour.objects.none()
