@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,9 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'timetable',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -53,6 +56,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'main.urls'
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 TEMPLATES = [
     {
