@@ -1,10 +1,4 @@
 import xlrd
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.core.exceptions import *
-from .models import Student, Day, Hour
-from .serializers import StudentSerializer
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
