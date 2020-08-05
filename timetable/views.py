@@ -7,7 +7,7 @@ def CourseData(request):
 
     course_number=request.GET['course_number']
 
-    loc=("II-Sem-2019_20_05_01_2020-converted (1).xlsx")
+    loc=("timetable.xlsx")
     wb=xlrd.open_workbook(loc)
     sheet=wb.sheet_by_index(0)
 
