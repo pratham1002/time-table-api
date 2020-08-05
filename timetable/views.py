@@ -20,7 +20,7 @@ def CourseData(request):
 
     for i in range(sheet.nrows):
 
-        if sheet.cell_value(i,1) == course_number :
+        if sheet.cell_value(i,1).lower() == course_number.lower() :
             
             for j in range(sheet.nrows):
 
