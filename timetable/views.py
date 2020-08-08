@@ -17,10 +17,14 @@ def CourseData(request):
     section_number=0
     instructors=[]
     row_number=0
-
+    ic=""
+    credits=0
+    
     for i in range(sheet.nrows):
 
         if sheet.cell_value(i,1).lower() == course_number.lower() :
+            ic = sheet.cell_value(i, 7)
+            credits=sheet.cell_value(i,3)
             
             for j in range(sheet.nrows):
 
@@ -130,6 +134,6 @@ def CourseData(request):
                     instructors.append(sheet.cell_value(i+j,7))
 
             break
-    return Response({ "Course_Number":course_number, "lectures":lectures, "practicals": practicals, "tutorials": tutorials, })
+    return Response({ "Course_Number":course_number, "lectures":lectures, "practicals": practicals, "tutorials": tutorials, "ic": ic, "credits": credits })
 
 
